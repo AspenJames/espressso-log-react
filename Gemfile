@@ -31,6 +31,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Use Dot-Env for environment vars in development
 gem 'dotenv'
 
+# Use Foreman for starting API & client servers
+gem 'foreman', '~> 0.85.0'
+
 group :development, :test do
   gem 'pry'
 end
