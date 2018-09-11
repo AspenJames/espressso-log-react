@@ -24,3 +24,6 @@
 
 # Ignore .env for environment vars
 .env
+
+# Ignore notes
+NOTES.md
