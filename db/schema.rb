@@ -10,16 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_08_194407) do
+ActiveRecord::Schema.define(version: 2018_09_13_184223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "coffee_shop_users", force: :cascade do |t|
+    t.integer "coffee_shop_id"
+    t.integer "user_id"
+    t.boolean "admin"
+    t.boolean "approved"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "coffee_shops", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "email"
-    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,12 +39,22 @@ ActiveRecord::Schema.define(version: 2018_09_08_194407) do
     t.integer "time"
     t.integer "coffee_shop_id"
     t.integer "origin_id"
+    t.integer "user_id"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "origins", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
