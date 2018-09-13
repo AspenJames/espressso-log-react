@@ -20,4 +20,8 @@ class CoffeeShopController < ApplicationController
   def set_coffee_shop 
     @coffee_shop = CoffeeShop.find(session[:id])
   end
+
+  def coffee_shop_params 
+    params.require(:coffee_shop).permit(:name, :address)
+  end
 end
