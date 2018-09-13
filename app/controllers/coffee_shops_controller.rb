@@ -18,7 +18,7 @@ class CoffeeShopsController < ApplicationController
 
   private 
   def set_coffee_shop 
-    @coffee_shop = CoffeeShop.find(session[:id])
+    @coffee_shop = CoffeeShop.find(params[:id])
   end
 
   def coffee_shop_params 
