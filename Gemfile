@@ -34,6 +34,9 @@ gem 'dotenv'
 # Use Foreman for starting API & client servers
 gem 'foreman', '~> 0.85.0'
 
+# Use Active Model Serializer for structuring our JSON
+gem 'active_model_serializers', '~> 0.10.0'
+
 group :development, :test do
   gem 'pry'
 end
