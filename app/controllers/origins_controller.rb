@@ -1,4 +1,4 @@
-class OriginController < ApplicationController
+class OriginsController < ApplicationController
 
   def index 
     render :json => Origin.all 

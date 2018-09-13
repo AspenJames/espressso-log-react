@@ -1,4 +1,4 @@
-class CoffeeShopController < ApplicationController
+class CoffeeShopsController < ApplicationController
   
   def create
   end

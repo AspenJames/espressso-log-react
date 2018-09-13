@@ -1,7 +1,8 @@
-class EspressoController < ApplicationController
+class EspressosController < ApplicationController
 
   def index
-    render :json => Espresso.all 
+    coffee_shop = CoffeeShop.find(params[:coffee_shop_id])
+    render :json => coffee_shop.espressos
   end
 
   def create 
