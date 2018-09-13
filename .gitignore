@@ -27,3 +27,6 @@
 
 # Ignore notes
 NOTES.md
+
+# Ignore vim .swp files
+*.swp
