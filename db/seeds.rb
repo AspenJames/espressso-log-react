@@ -62,7 +62,8 @@ CoffeeShopUser.create([
 
 Origin.create(
   # id=1
-  :name => "Guatemala La Bolsa"
+  :name => "Guatemala La Bolsa",
+  :coffee_shop_id => 1
 )
 
 ############ Create Espressos ############

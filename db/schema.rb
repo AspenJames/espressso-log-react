@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2018_09_13_184223) do
 
   create_table "origins", force: :cascade do |t|
     t.string "name"
+    t.integer "coffee_shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
