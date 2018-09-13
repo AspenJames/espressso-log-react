@@ -8,6 +8,8 @@ class CreateEspressos < ActiveRecord::Migration[5.2]
       t.integer :time
       t.integer :coffee_shop_id
       t.integer :origin_id
+      t.integer :user_id
+      t.text :notes
 
       t.timestamps
     end
