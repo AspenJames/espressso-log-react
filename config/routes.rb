@@ -4,4 +4,9 @@ Rails.application.routes.draw do
     resources :espressos, :only => [:create, :update, :show, :index, :destory]
     resources :origins, :only => [:create, :update, :show, :index, :destory]
   end
+
+  resources :users, :only => [:create, :update, :show, :index, :destroy]
+
+  post '/login' => 'sessions#create'
+  post '/logout' => 'sessions#destroy'
 end
