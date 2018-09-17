@@ -6,7 +6,7 @@ import coffeeShopsReducer from './coffee_shops_reducer';
 
 const rootReducer = combineReducers({
    users: usersReducer,
-   coffee_shops: coffeeShopsReducer,
+   coffeeShops: coffeeShopsReducer,
    origns: originsReducer,
    espressos: espressosReducer
 });
