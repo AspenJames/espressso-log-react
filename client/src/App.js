@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Login from './components/Login';
 import Signup from './components/Signup';
 
@@ -16,7 +17,7 @@ class App extends Component {
         </header> <br />
         <Router>
           <React.Fragment>
-            <NavBar /> <br />
+            <NavBar handleLogout={this.handleLogout} user={this.props.user} /> <br />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
           </React.Fragment>
@@ -24,6 +25,37 @@ class App extends Component {
       </div>
     );
   }
+
+  handleLogout = event => {
+    const user = {user: this.props.user}
+    event.preventDefault();
+    // sign out on server side
+    fetch("api/logout", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    }).then(resp => resp.json())
+      .then(json => console.log(json));
+    // reset store
+    this.props.resetUser();
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    user: state.users.user
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    resetUser: () => {
+      dispatch({type: "RESET_USER"})
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
