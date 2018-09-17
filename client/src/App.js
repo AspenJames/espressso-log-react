@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import NewEspresso from './containers/NewEspresso';
 
 class App extends Component {
   render() {
