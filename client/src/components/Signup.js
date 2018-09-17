@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addUser } from '../actions/userActions';
 
 class Signup extends Component {
   state = {
@@ -38,6 +40,7 @@ class Signup extends Component {
       document.getElementById('formErrors').remove();
     }
     const payload = {'user': this.state};
+    const addUser = this.props.addUser
     event.preventDefault();
     fetch("api/users", {
       method: "POST",
@@ -61,7 +64,8 @@ class Signup extends Component {
             password: ''
           });
         } else {
-          // add user to state 
+          debugger;
+          addUser(json);
           console.log(json);
           this.setState({
             name: '',
@@ -75,4 +79,12 @@ class Signup extends Component {
 
 }
 
-export default Signup;
+const mapDispatchToProps = dispatch => {
+  return {
+    addUser: () => {
+      dispatch(addUser())
+    }
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Signup);
