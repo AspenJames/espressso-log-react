@@ -1,10 +1,12 @@
 export default function usersReducer(state = {
-    user: '',
-    coffeeShops: []
+    user: ''
 }, action) {
     switch (action.type) {
         case "ADD_USER":
-            return state;
+            return {user: {
+              name: action.user.name,
+              email: action.user.email
+            }};
 
         default:
             return state;
