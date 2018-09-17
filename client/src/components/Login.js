@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { addUser } from '../actions/userActions';
+import { addCoffeeShop } from '../actions/coffeeShopActions';
 
 class Login extends Component {
   state = {
@@ -38,6 +39,7 @@ class Login extends Component {
     }
     const payload = {'user': this.state};
     const addUser = this.props.addUser;
+    const addCoffeeShop = this.props.addCoffeeShop;
     event.preventDefault();
     fetch("api/login", {
       method: "POST",
@@ -63,6 +65,10 @@ class Login extends Component {
         } else {
           // add user to store
           addUser(json.user);
+          // add user's coffee shops to store
+          json.user.coffee_shops.forEach(shop => {
+            addCoffeeShop(shop)
+          });
           // reset fields
           this.setState({
             email: '',
@@ -80,7 +86,10 @@ const mapDispatchToProps = dispatch => {
   return {
     addUser: user => {
       dispatch(addUser(user))
-    }
+    },
+    addCoffeeShop: coffeeShop => {
+      dispatch(addCoffeeShop(coffeeShop))
+    } 
   };
 }
 
