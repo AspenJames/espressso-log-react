@@ -8,7 +8,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className='formContainer'>
+        <div id='formErrors'></div>
         <form className='login' onSubmit={this.handleOnSubmit}>
           <label>Email: </label>
           <input type='text' id='email' value={this.state.email}
@@ -29,17 +30,34 @@ class Login extends Component {
   }
 
   handleOnSubmit = (event) => {
+    document.getElementById('formErrors').innerText = null;
     const payload = this.state
     event.preventDefault();
-    console.log(this.state);
     fetch("api/login", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: payload
-    }).then(resp => console.log("response: ", resp));
+      body: JSON.stringify(payload)
+    }).then(resp => resp.json())
+      .then(json => {
+        if (json.error === "not found") {
+          document.getElementById('formErrors').innerText = "Email and/or password incorrect";
+          this.setState({
+            password: ''
+          });
+        } else {
+          // add user to store
+          this.setState({
+            email: '',
+            password: ''
+          });
+          //redirect
+          console.log("success!");
+          console.log(json);
+        }
+      });
   }
 
 }
