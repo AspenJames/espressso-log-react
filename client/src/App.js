@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './components/Login';
 
@@ -15,6 +15,7 @@ class App extends Component {
         </header> <br />
         <Router>
           <React.Fragment>
+            <NavBar /> <br />
             <Route exact path='/login' component={Login} />
           </React.Fragment>
         </Router>
