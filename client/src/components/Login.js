@@ -35,7 +35,7 @@ class Login extends Component {
     if (document.getElementById('formErrors')) {
       document.getElementById('formErrors').remove();
     }
-    const payload = this.state;
+    const payload = {'user': this.state};
     const addUser = this.props.addUser;
     event.preventDefault();
     fetch("api/login", {
