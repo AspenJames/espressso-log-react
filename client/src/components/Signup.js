@@ -10,7 +10,7 @@ class Signup extends Component {
   render() {
     return (
       <div className='formContainer'>
-        <div id='formErrors'></div>
+        {/* <div id='formErrors'></div> */}
         <form className='singup' onSubmit={this.handleOnSubmit}>
           <label>Name: </label>
           <input type='text' id='name' value={this.state.name}
@@ -34,7 +34,9 @@ class Signup extends Component {
   }
 
   handleOnSubmit = event => {
-    document.getElementById('formErrors').innerText = null;
+    if (document.getElementById('formErrors')) {
+      document.getElementById('formErrors').remove();
+    }
     const payload = {'user': this.state};
     event.preventDefault();
     fetch("api/users", {
@@ -47,7 +49,14 @@ class Signup extends Component {
     }).then(resp => resp.json())
       .then(json => {
         if (json.errors) {
-          document.getElementById('formErrors').innerText = json.errors;
+          // append error message data if present
+          let errorDiv = document.createElement('div');
+          let formContainer = document.getElementsByClassName('formContainer')[0];
+          let form = document.getElementsByTagName('form')[0];
+          errorDiv.id = 'formErrors';
+          errorDiv.innerText = json.errors.join(', ');
+          formContainer.insertBefore(errorDiv, form);
+          // clear password field 
           this.setState({
             password: ''
           });

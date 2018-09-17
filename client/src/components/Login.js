@@ -30,7 +30,9 @@ class Login extends Component {
   }
 
   handleOnSubmit = event => {
-    document.getElementById('formErrors').innerText = null;
+    if (document.getElementById('formErrors')) {
+      document.getElementById('formErrors').remove();
+    }
     const payload = this.state;
     event.preventDefault();
     fetch("api/login", {
@@ -42,8 +44,14 @@ class Login extends Component {
       body: JSON.stringify(payload)
     }).then(resp => resp.json())
       .then(json => {
-        if (json.error === "not found") {
-          document.getElementById('formErrors').innerText = "Email and/or password incorrect";
+        if (json.errors) {
+          // append error message data if present 
+          let errorDiv = document.createElement('div');
+          let formContainer = document.getElementsByClassName('formContainer')[0];
+          let form = document.getElementsByTagName('form')[0];
+          errorDiv.id = 'formErrors';
+          errorDiv.innerText = json.errors
+          formContainer.insertBefore(errorDiv, form);
           this.setState({
             password: ''
           });
