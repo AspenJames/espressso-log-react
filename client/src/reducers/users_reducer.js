@@ -9,6 +9,9 @@ export default function usersReducer(state = {
               email: action.user.email
             }};
 
+        case "RESET_USER":
+          return {user: ''}
+
         default:
             return state;
     }
