@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id 
       render :json => @user
     else 
-      render :json => {"error": "not found"}
+      render :json => {"errors": "Email and/or password incorrect"}
     end
   end
 
