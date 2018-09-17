@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { addUser } from '../actions/userActions';
 
 class Signup extends Component {
@@ -69,7 +70,8 @@ class Signup extends Component {
             email: '',
             password: ''
           });
-          //TODO: redirect somewhere
+          // redirect to root
+          this.props.history.push('/');
         }
       });
   }
@@ -84,4 +86,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Signup);
+export default withRouter(connect(null, mapDispatchToProps)(Signup));
