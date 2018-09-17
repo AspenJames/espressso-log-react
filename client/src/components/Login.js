@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addUser } from '../actions/userActions';
 
 class Login extends Component {
   state = {
@@ -34,6 +36,7 @@ class Login extends Component {
       document.getElementById('formErrors').remove();
     }
     const payload = this.state;
+    const addUser = this.props.addUser;
     event.preventDefault();
     fetch("api/login", {
       method: "POST",
@@ -52,22 +55,31 @@ class Login extends Component {
           errorDiv.id = 'formErrors';
           errorDiv.innerText = json.errors
           formContainer.insertBefore(errorDiv, form);
+          // clear password field
           this.setState({
             password: ''
           });
         } else {
           // add user to store
+          addUser(json.user);
+          // reset fields
           this.setState({
             email: '',
             password: ''
           });
-          //redirect
-          console.log("success!");
-          console.log(json);
+          //TODO: redirect somewhere
         }
       });
   }
 
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    addUser: user => {
+      dispatch(addUser(user))
+    }
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Login);

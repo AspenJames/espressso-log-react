@@ -12,7 +12,6 @@ class Signup extends Component {
   render() {
     return (
       <div className='formContainer'>
-        {/* <div id='formErrors'></div> */}
         <form className='singup' onSubmit={this.handleOnSubmit}>
           <label>Name: </label>
           <input type='text' id='name' value={this.state.name}
@@ -64,15 +63,13 @@ class Signup extends Component {
             password: ''
           });
         } else {
-          debugger;
-          addUser(json);
-          console.log(json);
+          addUser(json.user);
           this.setState({
             name: '',
             email: '',
             password: ''
           });
-          //redirect somewhere
+          //TODO: redirect somewhere
         }
       });
   }
@@ -81,8 +78,8 @@ class Signup extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addUser: () => {
-      dispatch(addUser())
+    addUser: user => {
+      dispatch(addUser(user))
     }
   };
 }
