@@ -21,7 +21,7 @@ class App extends Component {
             <NavBar handleLogout={this.handleLogout} user={this.props.user} /> <br />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
-            {/* <Route exact path='/coffee_shops' component={CoffeeShops} /> */}
+            <Route exact path='/coffee_shops' component={CoffeeShops} />
             <Route exact path='/espressos/new' component={NewEspresso} />
           </React.Fragment>
         </Router>

@@ -13,7 +13,7 @@ const NavBar = props => {
     } else {
       return (
         <React.Fragment>
-          <NavLink to='/shops'        exact>Coffee Shops</NavLink><span> | </span>
+          <NavLink to='/coffee_shops'        exact>Coffee Shops</NavLink><span> | </span>
           <NavLink to='/espressos/new' exact>New Espresso</NavLink><span> | </span>
           <a href='api/logout' onClick={props.handleLogout}>Logout</a>
         </React.Fragment>
