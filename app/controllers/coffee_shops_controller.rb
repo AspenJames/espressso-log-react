@@ -1,6 +1,13 @@
 class CoffeeShopsController < ApplicationController
   
   def create
+    @coffee_shop = CoffeeShop.new(coffee_shop_params)
+    if @coffee_shop.save 
+      CoffeeShopUser.create(:coffee_shop_id => @coffee_shop.id, :user_id => session[:user_id], :admin => true, :approved => true);
+      render :json => @coffee_shop
+    else
+      render :json => {"errors": @coffee_shop.errors.full_messages}
+    end
   end
 
   def show
