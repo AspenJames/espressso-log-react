@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addCoffeeShop } from '../actions/coffeeShopActions';
 
 class CoffeeShopForm extends Component {
   state = {
@@ -14,6 +16,7 @@ class CoffeeShopForm extends Component {
 
   handleOnSubmit = event => {
     event.preventDefault();
+    const addCoffeeShop = this.props.addCoffeeShop;
     const data = {"coffee_shop": this.state}
     fetch("/api/coffee_shops", {
       method: "POST",
@@ -23,8 +26,10 @@ class CoffeeShopForm extends Component {
       },
       body: JSON.stringify(data)
     }).then(resp => resp.json())
-      .then(json => console.log(json));
-    //TODO: send data to store 
+      .then(json => {
+        //add coffee shop to store 
+        addCoffeeShop(json.coffee_shop);
+      });
     this.setState({
       name: '',
       address: ''
@@ -48,4 +53,12 @@ class CoffeeShopForm extends Component {
   }
 }
 
-export default CoffeeShopForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    addCoffeeShop: coffeeShop => {
+      dispatch(addCoffeeShop(coffeeShop))
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CoffeeShopForm);
