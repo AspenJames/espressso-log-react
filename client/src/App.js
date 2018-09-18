@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import NewEspresso from './containers/NewEspresso';
+import CoffeeShops from './containers/CoffeeShops';
 
 class App extends Component {
   render() {
@@ -44,6 +45,7 @@ class App extends Component {
       .then(json => console.log(json));
     // reset store
     this.props.resetUser();
+    //TODO: redirect to root 
   }
 }
 
