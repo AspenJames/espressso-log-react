@@ -1,18 +1,20 @@
 export default function usersReducer(state = {
-    user: ''
+  user: ''
 }, action) {
-    switch (action.type) {
-        case "ADD_USER":
-            return {user: {
-              id: action.user.id,
-              name: action.user.name,
-              email: action.user.email
-            }};
+  switch (action.type) {
+    case "ADD_USER":
+      return {
+        user: {
+          id: action.user.id,
+          name: action.user.name,
+          email: action.user.email
+        }
+      };
 
-        case "RESET_USER":
-          return {user: ''}
+    case "@@RESET":
+      return { user: '' }
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }

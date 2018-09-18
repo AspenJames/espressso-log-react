@@ -44,7 +44,7 @@ class App extends Component {
     }).then(resp => resp.json())
       .then(json => console.log(json));
     // reset store
-    this.props.resetUser();
+    this.props.resetStore()
     //TODO: redirect to root 
   }
 }
@@ -57,8 +57,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    resetUser: () => {
-      dispatch({type: "RESET_USER"})
+    resetStore: () => {
+      dispatch({type: "@@RESET"})
     }
   };
 }

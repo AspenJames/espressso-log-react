@@ -1,11 +1,14 @@
 export default function originsReducer(state = {
-    origins: []
+  origins: []
 }, action) {
-    switch (action.type) {
-        case "ADD_ORIGIN":
-            return state;
+  switch (action.type) {
+    case "ADD_ORIGIN":
+      return state;
 
-        default: 
-            return state;
-    }
+    case "@@RESET":
+      return { origins: [] }
+
+    default:
+      return state;
+  }
 }
