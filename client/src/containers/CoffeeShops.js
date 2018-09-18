@@ -7,11 +7,11 @@ class CoffeeShops extends Component {
   render() {
     return (
       <div className='coffeeShopsContainer'>
-        <h2>Select a cafe: </h2>
+        <h2>Select a cafe:</h2>
         <ul>
           {this.renderCoffeeShops()}
         </ul>
-        <h3>Or, enter a new coffee shop: </h3>
+        <h3>Or, enter a new coffee shop:</h3>
         <CoffeeShopForm />
       </div>
     );
@@ -20,7 +20,9 @@ class CoffeeShops extends Component {
   renderCoffeeShops = () => {
     return this.props.coffeeShops.map(shop => {
       return (
-        <NavLink key={shop.id} to={"/coffee_shops/" + shop.id} exact >{shop.name}</NavLink>
+        <React.Fragment>
+        <NavLink key={shop.id} to={"/coffee_shops/" + shop.id} exact >{shop.name}</NavLink><span>  </span>
+        </React.Fragment>
       )
     })
   }
