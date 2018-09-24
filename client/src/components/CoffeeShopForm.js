@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+
 import { addCoffeeShop } from '../actions/coffeeShopActions';
 
 class CoffeeShopForm extends Component {
@@ -16,8 +19,11 @@ class CoffeeShopForm extends Component {
 
   handleOnSubmit = event => {
     event.preventDefault();
+    const history = this.props.history;
     const addCoffeeShop = this.props.addCoffeeShop;
+    // prepare coffee shop data
     const data = {"coffee_shop": this.state}
+    // send to API to persist
     fetch("/api/coffee_shops", {
       method: "POST",
       headers: {
@@ -29,6 +35,8 @@ class CoffeeShopForm extends Component {
       .then(json => {
         //add coffee shop to store 
         addCoffeeShop(json.coffee_shop);
+        // redirect to show page for new shop
+        history.push(`/coffee_shops/${json.coffee_shop.id}`)
       });
     this.setState({
       name: '',
@@ -61,4 +69,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(CoffeeShopForm);
+export default withRouter(connect(null, mapDispatchToProps)(CoffeeShopForm));

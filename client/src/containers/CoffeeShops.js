@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import Select from 'react-select';
+
 import CoffeeShopForm from '../components/CoffeeShopForm';
 
 class CoffeeShops extends Component {
+ 
   render() {
+    
     return (
       <div className='coffeeShopsContainer'>
         <h2>Select a cafe:</h2>
@@ -16,15 +19,24 @@ class CoffeeShops extends Component {
       </div>
     );
   };
-
+  
   renderCoffeeShops = () => {
-    return this.props.coffeeShops.map(shop => {
+    const options = this.props.coffeeShops.map(shop => {
       return (
-        <React.Fragment>
-        <NavLink key={shop.id} to={"/coffee_shops/" + shop.id} exact >{shop.name}</NavLink><span>  </span>
-        </React.Fragment>
-      )
-    })
+        {value: shop.id, label: shop.name}
+      );
+    });
+
+    return (
+      <Select 
+        onChange={this.handleChange}
+        options={options} />
+    )
+  };
+
+  handleChange = (selectedOption) => {
+    // redirect to show page for selected shop
+    this.props.history.push(`/coffee_shops/${selectedOption.value}`);
   }
 }
 
