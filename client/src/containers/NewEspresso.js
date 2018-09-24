@@ -9,9 +9,9 @@ class NewEspresso extends Component {
     );
   };
 
-  handleSubmit = (event, data) => {
-    event.preventDefault();
+  handleSubmit = data => {
     console.log(data);
+    //TODO: send data to store + api
   }
 }
 
