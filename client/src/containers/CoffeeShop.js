@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import EspressoForm from '../components/EspressoForm';
 
@@ -7,7 +8,8 @@ class CoffeeShop extends Component {
     coffeeShop: {
       id: null,
       name: null,
-      address: null
+      address: null,
+      admin: null
     },
     espressos: [],
     pendingUsers: []
@@ -21,11 +23,14 @@ class CoffeeShop extends Component {
         console.log(json);
         // add shop to internal state
         const coffeeShop = json.coffee_shop;
+        debugger;
+        const admin = (this.props.user.id === coffeeShop.admin[0].id) ? true : false
         this.setState({
           coffeeShop: {
             id: coffeeShop.id,
             name: coffeeShop.name,
-            address: coffeeShop.address
+            address: coffeeShop.address,
+            admin: admin
           },
           espressos: coffeeShop.espressos,
           pendingUsers: coffeeShop.users_pending_approval
@@ -34,9 +39,11 @@ class CoffeeShop extends Component {
   }
 
   render() {
-    debugger;
     return (
-      <div />
+      <div>
+        <h2>{this.state.coffeeShop.name}</h2>
+        {this.state.coffeeShop.admin && <div>Admin</div>}
+      </div>
     );
   }
 }
