@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import NewEspresso from './containers/NewEspresso';
 import CoffeeShops from './containers/CoffeeShops';
+import CoffeeShop from './containers/CoffeeShop';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/coffee_shops' component={CoffeeShops} />
             <Route exact path='/espressos/new' component={NewEspresso} />
+            <Route exact path='/coffee_shops/:id' component={CoffeeShop} />
           </React.Fragment>
         </Router>
       </div>
