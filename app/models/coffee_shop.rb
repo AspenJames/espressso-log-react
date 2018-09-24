@@ -14,4 +14,8 @@ class CoffeeShop < ApplicationRecord
   def user_exists?(user)
     user.coffee_shops.include?(self)
   end
+
+  def admin
+    self.users.where("admin = true")
+  end
 end
