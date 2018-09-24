@@ -19,7 +19,7 @@ class App extends Component {
         </header> <br />
         <Router>
           <React.Fragment>
-            <NavBar handleLogout={this.handleLogout} user={this.props.user} /> <br />
+            <NavBar resetStore={this.props.resetStore} user={this.props.user} /> <br />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/coffee_shops' component={CoffeeShops} />
@@ -28,24 +28,6 @@ class App extends Component {
         </Router>
       </div>
     );
-  }
-
-  handleLogout = event => {
-    const user = {user: this.props.user}
-    event.preventDefault();
-    // sign out on server side
-    fetch("api/logout", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
-    }).then(resp => resp.json())
-      .then(json => console.log(json));
-    // reset store
-    this.props.resetStore()
-    //TODO: redirect to root 
   }
 }
 
