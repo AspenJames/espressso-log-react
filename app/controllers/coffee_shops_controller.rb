@@ -1,5 +1,9 @@
 class CoffeeShopsController < ApplicationController
   
+  def index 
+    render :json => CoffeeShop.all
+  end
+
   def create
     @coffee_shop = CoffeeShop.new(coffee_shop_params)
     if @coffee_shop.save 
