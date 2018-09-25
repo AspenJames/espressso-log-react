@@ -9,7 +9,8 @@ class CoffeeShop extends Component {
       id: null,
       name: null,
       address: null,
-      admin: null
+      admin: null,
+      approved: null
     },
     espressos: [],
     pendingUsers: []
@@ -23,14 +24,14 @@ class CoffeeShop extends Component {
         console.log(json);
         // add shop to internal state
         const coffeeShop = json.coffee_shop;
-        debugger;
-        const admin = (this.props.user.id === coffeeShop.admin[0].id) ? true : false
+        const approved = (coffeeShop.users_pending_approval.map(u => u.id).includes(this.props.user.id)) ? false : true
         this.setState({
           coffeeShop: {
             id: coffeeShop.id,
             name: coffeeShop.name,
             address: coffeeShop.address,
-            admin: admin
+            approved: approved,
+            admin: coffeeShop.admin[0]
           },
           espressos: coffeeShop.espressos,
           pendingUsers: coffeeShop.users_pending_approval
@@ -38,13 +39,26 @@ class CoffeeShop extends Component {
       });
   }
 
+  isAdmin = () => {
+    return this.state.coffeeShop.admin && this.props.user.id === this.state.coffeeShop.admin.id
+  }
+
   render() {
-    return (
-      <div>
-        <h2>{this.state.coffeeShop.name}</h2>
-        {this.state.coffeeShop.admin && <div>Admin</div>}
-      </div>
-    );
+    if (this.state.coffeeShop.approved === false) {
+      return(
+        <div>
+          <h2>{this.state.coffeeShop.name}</h2>
+          <p>Your approval for this coffee shop is pending, contact the admin, {this.state.coffeeShop.admin.name}, for approval.</p>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <h2>{this.state.coffeeShop.name}</h2>
+          {this.isAdmin() && <div>Admin</div>}
+        </div>
+      );
+    };
   }
 }
 
