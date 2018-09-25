@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import EspressoForm from '../components/EspressoForm';
+import PendingApprovals from '../components/PendingApprovals';
 
 class CoffeeShop extends Component {
   state = {
@@ -55,7 +56,7 @@ class CoffeeShop extends Component {
       return (
         <div>
           <h2>{this.state.coffeeShop.name}</h2>
-          {this.isAdmin() && <div>Admin</div>}
+          {this.isAdmin() && <div><PendingApprovals users={this.state.pendingUsers} coffeeShopId={this.state.coffeeShop.id}/></div>}
         </div>
       );
     };
