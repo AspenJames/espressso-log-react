@@ -4,6 +4,7 @@ class PendingApprovals extends Component {
   render() {
     return (
       <div>
+        <h3>Users pending approval: </h3>
         <ul>
           {this.renderUsers()}
         </ul>
@@ -14,25 +15,34 @@ class PendingApprovals extends Component {
   renderUsers = () => {
     return this.props.users.map(user => {
       return (
-        <React.Fragment>
-          <li key={user.id}>{user.name} <button
-            onClick={()=> this.approveUser(user.id)}
+        <React.Fragment key={user.id}>
+          <li id={user.id}>{user.name} <button
+            onClick={()=> this.updateUserPermission(user.id, "approve")}
           >Approve</button> <button
-            onClick={() => this.rejectUser(user.id)}
+            onClick={() => this.updateUserPermission(user.id, "deny")}
           >Reject</button></li>
         </React.Fragment>
       )
     })
   }
 
-  approveUser = (userId) => {
-    console.log("approved user id: ", userId)
-    //TODO: patch api/coffee_shop_users/{this.props.coffeeShopId}
-  }
-
-  rejectUser = (userId) => {
-    console.log("rejected user id: ", userId)
-    //TODO: delete api/coffee_shop_users/{this.props.coffeeShopId}
+  updateUserPermission = (userId, payload) => {
+    //TODO: patch api/coffee_shop_users/
+    // send {"user_id": xx, "coffee_shop_id": xx, "payload": "approve"/"deny"}
+    const data = {"user_id": userId, "coffee_shop_id": this.props.coffeeShopId, "payload": payload};
+    fetch(`/api/coffee_shop_users`, {
+      method: "PATCH",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(resp => resp.json())
+      .then(json => {
+        console.log(json);
+        // remove li 
+        document.getElementById(userId).remove();
+      })
   }
 }
 
