@@ -10,26 +10,27 @@ import CoffeeShopForm from '../components/CoffeeShopForm';
 class CoffeeShops extends Component {
 
   state = {
-    shopsPendingRequests: [],
+    existingShops: [],
   }
 
   componentDidMount() {
+    // This queries for all existing shops, filtering out those already in 
+    // the redux store/subscribed to by user
     const coffeeShopIds = this.props.coffeeShops.map(shop => shop.id);
     fetch(`/api/coffee_shops`)
       .then(resp => resp.json())
       .then(json => {
-        const shopsPendingRequests = json.coffee_shops.filter(shop => !coffeeShopIds.includes(shop.id));
-        this.setState({ shopsPendingRequests })
+        const existingShops = json.coffee_shops.filter(shop => !coffeeShopIds.includes(shop.id));
+        this.setState({ existingShops })
       });
   }
  
   render() {
-    
     return (
       <div className='coffeeShopsContainer'>
         <h2>Your Coffee Shops:</h2>
           {this.renderCoffeeShops()}
-        <h3>Request access:</h3>
+        <h3>Request access to another shop:</h3>
           {this.renderExistingCoffeeShops()}
         <h3>Or, enter a new coffee shop:</h3>
         <CoffeeShopForm />
@@ -57,7 +58,7 @@ class CoffeeShops extends Component {
   }
 
   renderExistingCoffeeShops = () => {
-    const options = this.state.shopsPendingRequests.map(shop => {
+    const options = this.state.existingShops.map(shop => {
       return (
         {value: shop, label: shop.name}
       );
