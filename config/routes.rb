@@ -7,8 +7,9 @@ Rails.application.routes.draw do
     end
 
     resources :users, :only => [:create, :update, :show, :index, :destroy]
-    resources :coffee_shop_users, :only => [:create, :update, :destroy]
+    resources :coffee_shop_users, :only => [:create, :destroy]
 
+    patch '/coffee_shop_users' => 'coffee_shop_users#update'
     post '/login' => 'sessions#create'
     post '/logout' => 'sessions#destroy'
   end

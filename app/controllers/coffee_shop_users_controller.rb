@@ -7,7 +7,16 @@ class CoffeeShopUsersController < ApplicationController
   end
 
   def update
-    @coffee_shop_user = CoffeeShopUser.find(params[:id])
+    # Find the record
+    @csu = CoffeeShopUser.find_by(:user_id => params[:user_id], 
+                    :coffee_shop_id => params[:coffee_shop_id])
+    if params[:payload] == "approve"
+      @csu.update(:approved => true)
+      render :json => {"approved": @csu}
+    elsif params[:payload] == "deny"
+      @csu.destroy
+      render :json => {"deleted": @csu}
+    end
   end
 
   def destroy
