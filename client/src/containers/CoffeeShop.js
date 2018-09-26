@@ -56,7 +56,7 @@ class CoffeeShop extends Component {
       return (
         <div>
           <h2>{this.state.coffeeShop.name}</h2>
-          {this.isAdmin() && <div><PendingApprovals users={this.state.pendingUsers} coffeeShopId={this.state.coffeeShop.id}/></div>}
+          {this.isAdmin() && this.state.pendingUsers.length > 0 && <div><PendingApprovals users={this.state.pendingUsers} coffeeShopId={this.state.coffeeShop.id}/></div>}
         </div>
       );
     };
